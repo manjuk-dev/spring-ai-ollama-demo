@@ -15,14 +15,30 @@ This project demonstrates a "Privacy-First" AI implementation using **Spring Boo
    ollama pull llama3.2:1b
 
 ## 🚀 Usage & Testing
+The application now supports two types of AI interactions: general queries and a specialized, streaming customer support agent.
 
-Once the application is running, you can test the AI controller using your browser or a terminal.
+1. General AI Controller (AIController)
+   A standard implementation for general-purpose questions.
 
-### 1. Using the Browser
-Simply open the following URL in your browser:
-`http://localhost:8080/ai/generate?message=who is Ronaldo ?`
+Endpoint: GET /ai/generate
 
-### 2. Using Terminal (cURL)
-Run this command to get a response directly in your terminal:
-```bash
-curl "http://localhost:8080/ai/generate?message=What+is+Spring+AI?"
+Example: http://localhost:8080/ai/generate?message=Who+is+Ronaldo?
+
+2. Customer Support Agent (SupportController)
+   This controller is specialized using a System Prompt ("You are a customer support agent...") and supports real-time streaming.
+
+A. Standard Response (Wait for full answer)
+Endpoint: GET /support/ask
+
+Example: http://localhost:8080/support/ask?question=How+do+I+reset+my+password?
+
+B. Streaming Response (Words appear one-by-one)
+This uses Server-Sent Events (SSE) to stream the AI response in real-time.
+
+Endpoint: GET /support/stream
+
+Testing via Terminal (Recommended):
+
+Bash
+
+curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computin
