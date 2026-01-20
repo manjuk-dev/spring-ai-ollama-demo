@@ -60,6 +60,7 @@ Testing via Terminal (Recommended):
 Bash
 
 curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing"
+
 3. Knowledge Base (RAG)
    Supports document uploads (PDFs, etc.) to provide domain-specific context for the AI.
 
