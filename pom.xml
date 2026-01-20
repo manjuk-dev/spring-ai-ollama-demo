@@ -20,7 +20,7 @@
 
 	<properties>
 		<java.version>21</java.version>
-		<spring-ai.version>1.1.2</spring-ai.version>
+		<spring-ai.version>1.0.0</spring-ai.version>
 	</properties>
 
 	<dependencies>
@@ -29,14 +29,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-vector-store</artifactId>
+		</dependency>
 
 		<!-- Spring AI Ollama model starter -->
 		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-ollama</artifactId>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-tika-document-reader</artifactId>
 		</dependency>
-
-		<!-- Testing support -->
+		<dependency>
+		        <groupId>org.springframework.ai</groupId>
+			    <artifactId>spring-ai-starter-model-ollama</artifactId>
+	    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -49,8 +55,7 @@
 			<dependency>
 				<groupId>org.springframework.ai</groupId>
 				<artifactId>spring-ai-bom</artifactId>
-				<version>${spring-ai.version}</version>
-				<type>pom</type>
+				<version>1.0.0</version> <type>pom</type>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
@@ -64,5 +69,16 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>

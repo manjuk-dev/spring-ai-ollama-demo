@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.features.general;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
