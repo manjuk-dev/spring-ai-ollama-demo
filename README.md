@@ -76,6 +76,7 @@ Command:
 Bash
 
 curl -X POST -F "file=@my_resume.pdf" http://localhost:8080/api/v1/kb/documents
+
 B. Ask Questions (Streaming)
 The AI will answer based only on the documents you uploaded.
 
