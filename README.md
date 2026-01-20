@@ -36,14 +36,14 @@ the application:
 
 ## Key Features
 
-1. General AI Controller (AIController)
+1. General AI Controller (AIController):
    A standard implementation for general-purpose questions using the local LLM.
 
 Endpoint: GET /ai/generate
 
 Example: http://localhost:8080/ai/generate?message=Who+is+Ronaldo?
 
-2. Customer Support Agent (SupportController)
+2. Customer Support Agent (SupportController):
    This controller is specialized using a System Prompt ("You are a customer support agent...") and supports real-time streaming for a better user experience.
 
 A. Standard Response (Wait for full answer)
@@ -61,7 +61,7 @@ Bash
 
 curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing"
 
-3. Knowledge Base (RAG)
+3. Knowledge Base (RAG):
    Supports document uploads (PDFs, etc.) to provide domain-specific context for the AI.
 
 ⚠️ Persistence Note: The current implementation uses an In-Memory store. Data is cleared upon application restart, requiring documents to be re-uploaded to the knowledge base for each new session.
