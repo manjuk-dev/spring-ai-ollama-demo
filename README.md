@@ -60,64 +60,6 @@ Testing via Terminal (Recommended):
 Bash
 
 curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing"
-
-Based on your project's structure and the features we have discussed, here is the complete, professionally formatted README.md file. It follows standard GitHub documentation patterns while incorporating all the bolded headlines and technical details you requested.
-
-🚀 Spring AI + Ollama: Local LLM & Knowledge Base Demo
-This project demonstrates a "Privacy-First" AI implementation using Spring Boot 3 and Ollama. It allows for running a Large Language Model (LLM) and an Embedding model entirely on a local machine—requiring no API keys or internet connection for inference.
-
-🛠️ Tech Stack
-Framework: Spring Boot 3.x
-
-AI Integration: Spring AI
-
-LLM Runner: Ollama
-
-Models:
-
-Chat: llama3.2:1b (General reasoning & generation)
-
-Embeddings: nomic-embed-text:latest (High-performance local vectorization)
-
-Vector Store: SimpleVectorStore (In-Memory)
-
-Architecture: RAG (Retrieval-Augmented Generation)
-
-📋 Prerequisites
-Install Ollama.
-
-Pull the required models via terminal:
-
-Bash
-
-ollama pull llama3.2:1b
-ollama pull nomic-embed-text
-🚀 Usage & Testing
-1. General AI Controller (AIController)
-   A standard implementation for general-purpose questions. It utilizes the local LLM without additional context.
-
-Endpoint: GET /ai/generate
-
-Example: http://localhost:8080/ai/generate?message=Who+is+Ronaldo?
-
-2. Customer Support Agent (SupportController)
-   This controller is specialized using a System Prompt ("You are a customer support agent...") and supports real-time streaming for a better user experience.
-
-A. Standard Response (Wait for full answer)
-Endpoint: GET /support/ask
-
-Example: http://localhost:8080/support/ask?question=How+do+I+reset+my+password?
-
-B. Streaming Response (Words appear one-by-one)
-This uses Server-Sent Events (SSE) to stream the AI response in real-time.
-
-Endpoint: GET /support/stream
-
-Testing via Terminal (Recommended):
-
-Bash
-
-curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing"
 3. Knowledge Base (RAG)
    Supports document uploads (PDFs, etc.) to provide domain-specific context for the AI.
 
