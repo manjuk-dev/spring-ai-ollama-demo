@@ -1,6 +1,8 @@
 package com.example.demo.features.general;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +12,8 @@ public class AIController {
 
     private final ChatClient chatClient;
 
-    public AIController(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
+    public AIController(@Qualifier("ollamaChatModel") ChatModel ollamaModel) {
+        this.chatClient = ChatClient.builder(ollamaModel).build();
 
     }
 

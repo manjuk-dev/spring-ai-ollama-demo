@@ -1,13 +1,13 @@
-# Spring AI + Ollama: Local LLM & Knowledge Base Demo
+# Spring AI Hybrid Gateway: Gemini & Ollama
 
-This project demonstrates a "Privacy-First" AI implementation using **Spring Boot 3** and **Ollama**. It allows you to
-run a Large Language Model (LLM) entirely on your local machine—no API keys or internet connection required for
-inference.
+This project demonstrates a Hybrid AI Orchestration architecture using Spring Boot 3 and Spring AI. It bridges the gap
+between high-performance cloud intelligence and privacy-first local processing.
 
 ## Tech Stack
 
 - **Framework:** Spring Boot 3.x
 - **AI Integration:** Spring AI
+- **Cloud LLM:** Google Gemini 2.5 Flash Lite
 - **LLM Runner:** Ollama
 - **Models:**
     - **Chat:** `llama3.2:1b` (General reasoning & generation)
@@ -22,6 +22,12 @@ inference.
    ```bash
    ollama pull llama3.2:1b
    ollama pull nomic-embed-text
+3. Get a Google API Key from AI Studio.
+4. Update application properties with api key and model.
+   # Google Gemini (Cloud)
+
+spring.ai.google.genai.api-key=${GOOGLE_AI_API_KEY}
+spring.ai.google.genai.chat.options.model=gemini-2.5-flash-lite
 
 ## Core Concepts: What is RAG?
 
@@ -36,15 +42,23 @@ the application:
 
 ## Key Features
 
-1. General AI Controller (AIController):
+1. Cloud Model Controller (CloudModelController):
+   Uses Google Gemini for high-performance generation.
+
+Endpoint: GET /ai/v1/googleAi/generate
+
+Example: curl "http://localhost:8080/ai/v1/googleAi/generate?question=What+is+2+plus+2?"
+
+2. General AI Controller (AIController):
    A standard implementation for general-purpose questions using the local LLM.
 
 Endpoint: GET /ai/generate
 
 Example: http://localhost:8080/ai/generate?message=Who+is+Ronaldo?
 
-2. Customer Support Agent (SupportController):
-   This controller is specialized using a System Prompt ("You are a customer support agent...") and supports real-time streaming for a better user experience.
+3. Customer Support Agent (SupportController):
+   This controller is specialized using a System Prompt ("You are a customer support agent...") and supports real-time
+   streaming for a better user experience.
 
 A. Standard Response (Wait for full answer)
 Endpoint: GET /support/ask
@@ -61,10 +75,11 @@ Bash
 
 curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing"
 
-3. Knowledge Base (RAG):
+4. Knowledge Base (RAG):
    Supports document uploads (PDFs, etc.) to provide domain-specific context for the AI.
 
-⚠️ Persistence Note: The current implementation uses an In-Memory store. Data is cleared upon application restart, requiring documents to be re-uploaded to the knowledge base for each new session.
+⚠️ Persistence Note: The current implementation uses an In-Memory store. Data is cleared upon application restart,
+requiring documents to be re-uploaded to the knowledge base for each new session.
 
 A. Upload a Document
 Parses the document, chunks the text, and generates embeddings for search.

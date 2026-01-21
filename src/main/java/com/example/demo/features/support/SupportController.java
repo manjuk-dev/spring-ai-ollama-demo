@@ -1,6 +1,8 @@
 package com.example.demo.features.support;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -11,8 +13,8 @@ public class SupportController {
 
     private final ChatClient chatClient;
 
-    public SupportController(ChatClient.Builder builder) {
-        this.chatClient = builder
+    public SupportController(@Qualifier("ollamaChatModel") ChatModel ollamaModel) {
+        this.chatClient = ChatClient.builder(ollamaModel)
                 .defaultSystem("You are a customer support agent for a tech company.")
                 .build();
     }

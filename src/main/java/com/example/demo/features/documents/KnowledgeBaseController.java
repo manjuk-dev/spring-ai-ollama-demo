@@ -1,9 +1,11 @@
 package com.example.demo.features.documents;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,10 +23,11 @@ public class KnowledgeBaseController {
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
 
-    public KnowledgeBaseController(DocumentService documentService, ChatClient.Builder builder, VectorStore vectorStore) {
+
+    public KnowledgeBaseController(DocumentService documentService, @Qualifier("ollamaChatModel") ChatModel ollamaModel, VectorStore vectorStore) {
         this.documentService = documentService;
         this.vectorStore = vectorStore;
-        this.chatClient = builder.build();
+        this.chatClient = ChatClient.builder(ollamaModel).build();
     }
 
     /**
