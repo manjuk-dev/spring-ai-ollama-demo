@@ -8,7 +8,7 @@ between high-performance cloud intelligence and privacy-first local processing.
 - **Framework:** Spring Boot 3.x
 - **AI Integration:** Spring AI
 - **Cloud LLM:** Google Gemini 2.5 Flash Lite
-- **LLM Runner:** Ollama
+- **Local LLM:** Ollama
 - **Models:**
     - **Chat:** `llama3.2:1b` (General reasoning & generation)
     - **Embeddings:** `nomic-embed-text:latest` (Converting text to vectors)
@@ -43,11 +43,22 @@ the application:
 ## Key Features
 
 1. Cloud Model Controller (CloudModelController):
-   Uses Google Gemini for high-performance generation.
+   
+A.Uses Google Gemini for high-performance generation.
 
 Endpoint: GET /ai/v1/googleAi/generate
 
 Example: curl "http://localhost:8080/ai/v1/googleAi/generate?question=What+is+2+plus+2?"
+
+B.Multimodal Vision (Cloud)
+
+Leverage Gemini's vision capabilities to analyze images, OCR documents, or explain complex diagrams.
+
+Endpoint: POST /ai/v1/googleAi/vision
+
+Testing on bash
+
+curl -X POST http://localhost:8080/ai/v1/googleAi/vision -F "question=What is this error?" -F "file=@error.jpg"
 
 2. General AI Controller (AIController):
    A standard implementation for general-purpose questions using the local LLM.
