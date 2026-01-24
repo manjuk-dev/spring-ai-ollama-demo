@@ -7,6 +7,8 @@ between high-performance cloud intelligence and privacy-first local processing.
 
 - **Framework:** Spring Boot 3.x
 - **AI Integration:** Spring AI
+- **Database:** H2 (File-based persistence at ./data/chatdb)
+- **Scheduling:** Spring @Scheduled for automated maintenance.
 - **Cloud LLM:** Google Gemini 2.5 Flash Lite
 - **Local LLM:** Ollama
 - **Models:**
@@ -98,7 +100,7 @@ curl -N "http://localhost:8080/support/stream?question=Explain+quantum+computing
 
 Supports document uploads (PDFs, etc.) to provide domain-specific context for the AI.
 
-⚠️ Persistence Note: The current implementation uses an In-Memory store. Data is cleared upon application restart,
+**Persistence Note:** The current implementation uses an In-Memory store. Data is cleared upon application restart,
 requiring documents to be re-uploaded to the knowledge base for each new session.
 
 A. Upload a Document
@@ -135,6 +137,18 @@ Ask with Automatic Fallback
 ```bash
   curl "http://localhost:8080/ai/v1/agent/ask?question=How+is+my+computer+doing?"
 ```
+### 6. Stateful Chat (With Memory) (ChatController)
+
+This utilizes the **MessageChatMemoryAdvisor**. Instead of sending a stateless prompt, the advisor intercepts the call, retrieves the history from the SPRING_AI_CHAT_MEMORY table in H2, and augments the prompt.
+The system includes a ChatMemoryCleanupService that runs a background cron job to keep the database lean.
+
+**Note**: The SimpleVectorStore used for RAG is currently in-memory. While chat history persists, document embeddings are cleared on restart
+
+This endpoint remembers who you are across requests using your userId.
+
+Endpoint: GET /ai/chat?userId=user1&message=Hi, I'm Rahul.
+
+Persistence Test: Chat, restart the app, then ask "What is my name?"
 
 ## Architecture Highlights
 

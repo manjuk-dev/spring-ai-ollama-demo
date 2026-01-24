@@ -1,4 +1,4 @@
-package com.example.demo.features;
+package com.example.demo.features.MultimodalCloud;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;

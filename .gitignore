@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Ignore the data folder created for H2 and Vector Store
+/data/
+
 ### STS ###
 .apt_generated
 .classpath
